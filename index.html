@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#693D30">
+<title>लघु व्यवसाय त्वरित कार्य योजना · SB Quick Action Plan</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+@font-face{font-family:Montserrat;font-weight:400;font-display:swap;src:url(fonts/montserrat-400.woff2) format('woff2')}
+@font-face{font-family:Montserrat;font-weight:600;font-display:swap;src:url(fonts/montserrat-600.woff2) format('woff2')}
+@font-face{font-family:Montserrat;font-weight:700;font-display:swap;src:url(fonts/montserrat-700.woff2) format('woff2')}
+:root{
+  --brown:#693D30; --beige:#DDD0CC; --wash:#F1E9E5; --rose:#D4A496; --tan:#C99E89;
+  --off:#FBFAFA; --line:#ADB6BE; --ok:#2E9935; --err:#9E2B1E; --ink:#160601;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:#FFFFFF;color:var(--brown);
+  font-family:Montserrat,"Noto Sans Devanagari","Mukta",system-ui,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+.hi{display:block}
+.en{display:block;font-size:.8em;opacity:.82;line-height:1.35}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--brown);outline-offset:2px}
+
+header.top{background:var(--brown);color:#fff;padding:14px 18px 12px}
+header.top .hi{font-size:1.15rem;font-weight:600;line-height:1.3}
+header.top .en{font-size:.82rem;opacity:.85}
+
+.status{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:8px 18px;
+  background:var(--off);border-bottom:1px solid var(--beige);font-size:.78rem}
+.status .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--line);margin-right:6px;vertical-align:middle}
+.status.on .dot{background:var(--ok)}
+.status .grp{display:flex;align-items:center}
+.status .grp .en{display:inline;font-size:1em;opacity:.75;margin-left:4px}
+.status .grp .hi{display:inline}
+.status button{margin-left:auto;background:none;border:1.5px solid var(--brown);padding:4px 10px;min-height:34px;cursor:pointer;font-size:.78rem}
+.status button[disabled]{opacity:.5}
+
+.banner{padding:10px 18px;background:var(--wash);border-bottom:1px solid var(--beige);font-size:.85rem;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.banner button{background:var(--brown);color:#fff;border:0;padding:6px 12px;min-height:38px;cursor:pointer}
+.banner button.ghost{background:none;color:var(--brown);border:1.5px solid var(--brown)}
+
+main{max-width:640px;margin:0 auto;padding:18px 18px 40px}
+h1.screen{font-size:1.3rem;font-weight:400;margin:4px 0 18px;line-height:1.3}
+h1.screen .en{font-size:.68em}
+.crumb{font-size:.78rem;margin-bottom:6px;opacity:.85}
+
+.field{display:block;margin:0 0 18px}
+.field .lbl{display:block;margin-bottom:6px}
+.field .lbl .hi{font-weight:600}
+.field .lbl .en{font-size:.78rem}
+.field .hint{display:block;font-size:.78rem;margin-top:5px;opacity:.85}
+input[type=text],input[type=date],select,textarea{width:100%;min-height:50px;padding:10px 12px;background:#fff;
+  border:1.5px solid var(--tan);border-radius:2px;font-size:1rem}
+textarea{min-height:110px;resize:vertical;line-height:1.45}
+select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--brown) 50%),linear-gradient(135deg,var(--brown) 50%,transparent 50%);
+  background-position:calc(100% - 20px) 22px,calc(100% - 14px) 22px;background-size:6px 6px;background-repeat:no-repeat;padding-right:36px}
+select:disabled,input:disabled{background-color:var(--off);opacity:.6}
+.amount{display:flex;gap:8px}
+.amount input{flex:1}
+.sign{min-width:104px;border:1.5px solid var(--brown);background:#fff;cursor:pointer;padding:4px 8px;line-height:1.2}
+.sign.neg{background:var(--brown);color:#fff}
+
+.btn{display:block;width:100%;min-height:56px;border:0;background:var(--brown);color:#fff;cursor:pointer;
+  padding:10px 16px;text-align:center;border-radius:0;font-size:1rem}
+.btn .hi{font-weight:600}
+.btn[disabled]{background:var(--beige);color:#8a6b62;cursor:not-allowed}
+.btn.alt{background:#fff;color:var(--brown);border:1.5px solid var(--brown)}
+.row{display:flex;gap:10px;margin-top:8px}
+.row>*{flex:1}
+.actions{margin-top:22px;display:grid;gap:10px}
+
+.choice{display:block;width:100%;text-align:left;background:var(--wash);border:0;border-left:5px solid var(--brown);
+  padding:18px 18px;margin-bottom:12px;cursor:pointer;min-height:76px;font-size:1.05rem}
+.choice .hi{font-weight:600}
+.choice.sel{background:var(--brown);color:#fff}
+
+.errors{color:var(--err)}
+.errors:not(:empty){margin:4px 0 6px;padding:10px 12px 10px 14px;border-left:4px solid var(--err);background:#FBF3F1}
+.errors ul{margin:0;padding-left:18px}
+.errors li{margin:3px 0}
+
+.note{background:var(--wash);padding:14px 16px;margin:0 0 18px;border-left:5px solid var(--rose)}
+.note .hi{font-weight:600}
+
+.photo{margin:0 0 18px;padding:12px;border:1.5px dashed var(--tan);background:var(--off)}
+.photo .lbl{display:block;margin-bottom:8px}
+.photo .lbl .hi{font-weight:600}
+.photo img{display:block;max-width:100%;max-height:220px;margin:0 0 10px;border:1px solid var(--beige)}
+.photo .pbtns{display:flex;gap:8px;flex-wrap:wrap}
+.photo label.take,.photo button{display:inline-block;background:#fff;border:1.5px solid var(--brown);padding:8px 14px;cursor:pointer;min-height:44px;line-height:1.25}
+.photo label.take.primary{background:var(--brown);color:#fff}
+.photo input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+
+.steps{display:flex;gap:4px;margin:0 0 16px}
+.steps i{flex:1;height:6px;background:var(--beige)}
+.steps i.done{background:var(--tan)}
+.steps i.cur{background:var(--brown)}
+
+.card{background:#fff;border-radius:10px;box-shadow:rgba(35,35,35,.1) 0 0 30px 0;padding:16px 16px 14px;margin:0 0 16px;border-left:6px solid var(--beige)}
+.card.flag{border-left-color:var(--rose)}
+.card .head{display:flex;gap:12px;align-items:flex-start}
+.card .num{flex:none;width:30px;height:30px;border:1.5px solid var(--brown);display:grid;place-items:center;font-weight:600;font-size:.9rem}
+.card .title{flex:1}
+.card .title .hi{font-weight:600}
+.tag{flex:none;font-size:.75rem;padding:3px 8px;text-align:center;line-height:1.2}
+.tag.ok{color:var(--ok);border:1.5px solid var(--ok)}
+.tag.bad{background:var(--rose);color:var(--ink)}
+dl.figs{display:grid;grid-template-columns:1fr auto;gap:6px 12px;margin:14px 0 4px;font-size:.88rem}
+dl.figs dt .en{font-size:.85em}
+dl.figs dd{margin:0;text-align:right;font-weight:600;white-space:nowrap;align-self:center}
+dl.figs dd.total{border-top:1px solid var(--beige);padding-top:4px}
+dl.figs dt.total{border-top:1px solid var(--beige);padding-top:4px}
+.graph{margin:12px 0 2px}
+.graph svg{display:block;width:100%;height:auto}
+.legend{display:flex;gap:14px;font-size:.72rem;margin-top:4px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:-1px;background:var(--brown)}
+.legend span.old::before{background:var(--tan)}
+.card .cta{margin-top:12px}
+.recorded{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding:10px 12px;background:var(--wash)}
+.recorded b{color:var(--ok);font-weight:600}
+.recorded button{background:none;border:0;text-decoration:underline;cursor:pointer;color:var(--brown);min-height:40px;padding:0 6px}
+.none{padding:16px;background:var(--wash);text-align:center;margin-bottom:16px}
+
+.review-item{padding:12px 14px;margin-bottom:10px;background:var(--wash)}
+.review-item .name .hi{font-weight:600}
+.review-item dl{margin:8px 0 0;font-size:.88rem;display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
+.review-item dt{opacity:.85}
+.review-item dd{margin:0}
+
+.saved{text-align:center;padding:30px 10px 10px}
+.saved .mark{font-size:2.6rem;line-height:1;color:var(--ok);margin-bottom:12px}
+.saved .hi{font-size:1.15rem;font-weight:600}
+
+details.tools{max-width:640px;margin:0 auto 30px;padding:0 18px;font-size:.88rem}
+details.tools summary{cursor:pointer;padding:10px 0;min-height:44px}
+details.tools .tl{display:grid;gap:8px;padding-bottom:10px}
+details.tools button{background:#fff;border:1.5px solid var(--brown);padding:8px 12px;text-align:left;cursor:pointer;min-height:44px}
+details.tools .meta{font-size:.75rem;opacity:.8;word-break:break-word}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <span class="hi">लघु व्यवसाय त्वरित कार्य योजना</span>
+  <span class="en">Small Business Quick Action Plan</span>
+</header>
+<div id="status" class="status" aria-live="polite"></div>
+<div id="banners"></div>
+<main id="app"></main>
+<details class="tools" id="tools">
+  <summary><span class="hi">और विकल्प</span><span class="en">More options</span></summary>
+  <div class="tl">
+    <button data-act="syncNow"><span class="hi">अभी सिंक करें</span><span class="en">Sync now</span></button>
+    <button data-act="refreshLists"><span class="hi">दीदी सूची अपडेट करें</span><span class="en">Refresh didi list</span></button>
+    <button data-act="exportJSON"><span class="hi">बाकी डेटा डाउनलोड करें (JSON, फोटो सहित)</span><span class="en">Export pending data (JSON, with photos)</span></button>
+    <button data-act="exportCSV"><span class="hi">बाकी डेटा डाउनलोड करें (CSV)</span><span class="en">Export pending data (CSV)</span></button>
+    <button data-act="install" id="installBtn" hidden><span class="hi">ऐप को होम स्क्रीन पर जोड़ें</span><span class="en">Add app to home screen</span></button>
+    <div class="meta" id="meta"></div>
+  </div>
+</details>
+
+<script>
+'use strict';
+// ───────────────────────── CONFIG (edit API_URL after deploying Code.gs) ─────────────────────────
+const CONFIG = {
+  API_URL: 'https://script.google.com/macros/s/AKfycbwO9syNITLenZwP6Cnu7Ffoa5U7TJ0u7jYu50wZDPP-0e_ADkMV2IMIk0dPUSK7_dSFMQ/exec'
+  APP_VERSION: '1.0.0',
+  BATCH_MAX_RECORDS: 20,
+  BATCH_MAX_BYTES: 3500000,                 // keeps each upload well under Apps Script limits
+  PHOTO_MAX_PX: 800,
+  PHOTO_QUALITY: 0.7
+};
+// Used only until the first download from the sheet; after that the sheet's settings are used.
+const DEFAULT_SETTINGS = { HH_LIMIT_PCT: 20, CREDIT_LIMIT_PCT: 20, CASH_SUBTRACT_PROFIT: true, HH_INCLUDES_PROFIT: true };
+
+// ───────────────────────── Shared analysis (same code in Code.gs) ─────────────────────────
+function sbapAnalyse(weeks, credit, S) {
+  function sum(k, from, to) {
+    var t = 0;
+    for (var i = from; i < to; i++) t += Number(weeks[i][k]) || 0;
+    return t;
+  }
+  function pct(n, d) { return d > 0 ? (n / d) * 100 : null; }
+  var tS = sum('sales', 0, 8), tE = sum('exp', 0, 8), tH = sum('hh', 0, 8), tP = sum('profit', 0, 8);
+  var cash = tS - (tE + tH + (S.CASH_SUBTRACT_PROFIT ? tP : 0));
+  var s1 = sum('sales', 0, 4), s2 = sum('sales', 4, 8);
+  var e1 = sum('exp', 0, 4), e2 = sum('exp', 4, 8);
+  var hhAmt = tH + (S.HH_INCLUDES_PROFIT ? tP : 0);
+  var hhLimit = (S.HH_LIMIT_PCT / 100) * tS;
+  var avgM = tS / 2;
+  var c = Number(credit) || 0;
+  var crLimit = (S.CREDIT_LIMIT_PCT / 100) * avgM;
+  return {
+    t: {
+      sales: tS, exp: tE, hh: tH, profit: tP, cash: cash,
+      s1: s1, s2: s2, salesChange: pct(s2 - s1, s1),
+      e1: e1, e2: e2, expChange: pct(e2 - e1, e1),
+      hhAmt: hhAmt, hhPct: pct(hhAmt, tS), hhLimit: hhLimit,
+      credit: c, avgMonthly: avgM, creditPct: pct(c, avgM), creditLimit: crLimit
+    },
+    flags: [cash <= 0, s1 > s2, e1 > e2, hhAmt > hhLimit, c > crLimit]
+  };
+}
+function sbapINR(n) {
+  n = Number(n) || 0;
+  var neg = n < 0;
+  var parts = (Math.round(Math.abs(n) * 100) / 100).toFixed(2).split('.');
+  var i = parts[0], last3 = i.slice(-3), rest = i.slice(0, -3);
+  if (rest) last3 = ',' + last3;
+  rest = rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',');
+  var s = rest + last3 + (parts[1] !== '00' ? '.' + parts[1] : '');
+  return (neg ? '−' : '') + '₹' + s;
+}
+function sbapPct(p, signed) {
+  if (p === null || p === undefined) return 'n/a';
+  var r = Math.round(p * 10) / 10;
+  return (signed && r > 0 ? '+' : '') + r + '%';
+}
+
+// ───────────────────────── Text ─────────────────────────
+const CHECK_NAMES = [
+  ['नकद शेष शून्य या ऋणात्मक', 'Cash balance 0 or negative'],
+  ['बिक्री घट रही है', 'Sales declining'],
+  ['व्यवसाय खर्च (पुनर्निवेश) घट रहा है', 'Business expense (reinvestment) declining'],
+  ['घर खर्च के लिए अधिक निकासी', 'High household withdrawal'],
+  ['अधिक बकाया उधार', 'High outstanding credit']
+];
+const SARATHI_HI = 'चेंज मेकर को पिछले 4 सप्ताह की सारथी प्रविष्टि पूरी करने के लिए परामर्श दें।';
+const SARATHI_EN = 'Counsel the Change Maker to complete Sarathi entry for the last 4 weeks.';
+const SARATHI_SUMMARY = 'Missed Sarathi entry – Counsel the Change Maker to complete Sarathi entry for the last 4 weeks';
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function L(hi, en) { return `<span class="hi">${hi}</span><span class="en">${en}</span>`; }
+
+// ───────────────────────── Dates (local, yyyy-mm-dd strings) ─────────────────────────
+function iso(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function parseD(s) { const p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2], 12); }
+function today() { return iso(new Date()); }
+function addDays(s, n) { const d = parseD(s); d.setDate(d.getDate() + n); return iso(d); }
+function fmtDate(s) { if (!s) return ''; const d = parseD(s); return String(d.getDate()).padStart(2, '0') + '-' + MONTHS[d.getMonth()] + '-' + d.getFullYear(); }
+function fmtDateTime(isoStr) {
+  if (!isoStr) return '';
+  const d = new Date(isoStr);
+  return fmtDate(iso(d)) + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+}
+
+// ───────────────────────── IndexedDB ─────────────────────────
+const DB = (() => {
+  let dbp;
+  function open() {
+    if (!dbp) dbp = new Promise((res, rej) => {
+      const r = indexedDB.open('sbap', 1);
+      r.onupgradeneeded = () => { const d = r.result; d.createObjectStore('outbox', { keyPath: 'uuid' }); d.createObjectStore('kv'); };
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    });
+    return dbp;
+  }
+  async function tx(store, mode, fn) {
+    const d = await open();
+    return new Promise((res, rej) => {
+      const t = d.transaction(store, mode);
+      let out;
+      const r = fn(t.objectStore(store));
+      if (r) r.onsuccess = () => { out = r.result; };
+      t.oncomplete = () => res(out);
+      t.onerror = () => rej(t.error);
+      t.onabort = () => rej(t.error);
+    });
+  }
+  return {
+    get: k => tx('kv', 'readonly', s => s.get(k)),
+    set: (k, v) => tx('kv', 'readwrite', s => s.put(v, k)),
+    del: k => tx('kv', 'readwrite', s => s.delete(k)),
+    putRec: r => tx('outbox', 'readwrite', s => s.put(r)),
+    allRecs: () => tx('outbox', 'readonly', s => s.getAll()),
+    delRec: k => tx('outbox', 'readwrite', s => s.delete(k))
+  };
+})();
+
+// ───────────────────────── State ─────────────────────────
+let master = null;          // {didis, settings, latestReviews, fetchedAt}
+let localReviews = {};      // reviews saved on this phone (for Screen 2 before they sync)
+let deviceId = '';
+let state = blankState('');
+let draftTimer = null;
+
+function blankState(filledBy) {
+  return {
+    screen: 's1', hist: [],
+    f: { filledBy: filledBy || '', block: '', cm: '', didiId: '', bizType: '' },
+    problem: '', bkReason: '',
+    bk: { photo: '', reason: '', action: '', followUp: '' },
+    sarathi: [null, null, null, null],
+    weeks: Array.from({ length: 8 }, () => ({ start: '', end: '', sales: '', exp: '', hh: '', profit: '', neg: false, touched: false })),
+    credit: { amount: '', source: '' },
+    issues: {},
+    fu: { update: '', date: '', photos: [null, null, null, null] },
+    editing: 0
+  };
+}
+function settings() { return (master && master.settings) || DEFAULT_SETTINGS; }
+function setPath(obj, path, v) {
+  const k = path.split('.');
+  let o = obj;
+  for (let i = 0; i < k.length - 1; i++) o = o[k[i]];
+  o[k[k.length - 1]] = v;
+}
+function getPath(obj, path) { return path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj); }
+function saveDraftSoon() {
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(() => DB.set('draft', state).catch(() => {}), 350);
+}
+function weekNums(w) { return { sales: +w.sales || 0, exp: +w.exp || 0, hh: +w.hh || 0, profit: (w.neg ? -1 : 1) * (+w.profit || 0) }; }
+function currentAnalysis() { return sbapAnalyse(state.weeks.map(weekNums), state.credit.amount, settings()); }
+function didiName(id) { const d = master && master.didis.find(x => x.i === id); return d ? d.n : ''; }
+function lastReview(id) {
+  const a = master && master.latestReviews && master.latestReviews[id];
+  const b = localReviews[id];
+  if (a && b) return (b.ts || 0) > (a.ts || 0) ? b : a;
+  return a || b || null;
+}
+
+// ───────────────────────── Navigation ─────────────────────────
+function go(screen) { state.hist.push(state.screen); state.screen = screen; render(true); }
+function back() { if (state.hist.length) { state.screen = state.hist.pop(); render(true); } }
+function returnTo(screen) {
+  while (state.hist.length && state.hist[state.hist.length - 1] !== screen) state.hist.pop();
+  state.hist.pop();
+  state.screen = screen;
+}
+
+// ───────────────────────── Field builders ─────────────────────────
+function field(hi, en, input, hint) {
+  return `<label class="field"><span class="lbl">${L(hi, en)}</span>${input}${hint ? `<span class="hint">${hint}</span>` : ''}</label>`;
+}
+function txt(path, extra) { return `<input type="text" data-bind="${path}" value="${esc(getPath(state, path))}" ${extra || ''}>`; }
+function area(path) { return `<textarea data-bind="${path}" rows="4">${esc(getPath(state, path))}</textarea>`; }
+function dateIn(path, min, max) { return `<input type="date" data-bind="${path}" value="${esc(getPath(state, path))}"${min ? ` min="${min}"` : ''}${max ? ` max="${max}"` : ''}>`; }
+function num(path) { return `<input type="text" inputmode="decimal" autocomplete="off" data-num data-bind="${path}" value="${esc(getPath(state, path))}" placeholder="0">`; }
+function sel(path, options, placeholder, disabled) {
+  const v = getPath(state, path);
+  return `<select data-bind="${path}"${disabled ? ' disabled' : ''}><option value="">${esc(placeholder)}</option>` +
+    options.map(o => `<option value="${esc(o.v)}"${o.v === v ? ' selected' : ''}>${esc(o.t)}</option>`).join('') + '</select>';
+}
+function photoBox(path, hi, en, required) {
+  const v = getPath(state, path);
+  const id = 'p_' + path.replace(/\W/g, '_');
+  return `<div class="photo"><span class="lbl">${L(hi + (required ? ' *' : ' (वैकल्पिक)'), en + (required ? ' *' : ' (optional)'))}</span>
+    ${v ? `<img src="${v}" alt="">` : ''}
+    <div class="pbtns">
+      <label class="take${v ? '' : ' primary'}" for="${id}">${v ? L('फिर से फोटो लें', 'Retake photo') : L('फोटो लें', 'Take photo')}</label>
+      ${v && !required ? `<button type="button" data-act="removePhoto" data-path="${path}">${L('हटाएँ', 'Remove')}</button>` : ''}
+    </div>
+    <input id="${id}" type="file" accept="image/*" capture="environment" data-photo="${path}">
+  </div>`;
+}
+function errBox() { return '<div class="errors" id="err" role="alert"></div>'; }
+function backBtn() { return `<button class="btn alt" data-act="back">${L('पीछे', 'Back')}</button>`; }
+function crumb() {
+  const f = state.f;
+  if (!f.didiId) return '';
+  return `<div class="crumb">${esc(f.didiId)} – ${esc(didiName(f.didiId))} · ${esc(f.block)} · ${esc(f.cm)}</div>`;
+}
+function title(hi, en) { return `${crumb()}<h1 class="screen">${L(hi, en)}</h1>`; }
+function showErrors(list) {
+  const box = document.getElementById('err');
+  if (!box) return;
+  box.innerHTML = list.length ? '<ul>' + list.map(([h, e]) => `<li>${L(h, e)}</li>`).join('') + '</ul>' : '';
+  if (list.length) box.scrollIntoView({ block: 'center', behavior: 'smooth' });
+}
+
+// ───────────────────────── Screens ─────────────────────────
+const S = {};
+
+S.s1 = () => {
+  if (!master || !master.didis.length) {
+    return `<h1 class="screen">${L('दीदी चुनें', 'Select didi')}</h1>
+      <div class="note">${L('दीदी सूची अभी इस फ़ोन में नहीं है। इंटरनेट चालू करके नीचे बटन दबाएँ।', 'The didi list is not on this phone yet. Turn on the internet and tap the button below.')}</div>
+      <div class="actions"><button class="btn" data-act="refreshLists">${L('दीदी सूची डाउनलोड करें', 'Download didi list')}</button></div>`;
+  }
+  const f = state.f, ds = master.didis;
+  const blocks = [...new Set(ds.map(d => d.b))].sort().map(b => ({ v: b, t: b }));
+  const cms = f.block ? [...new Set(ds.filter(d => d.b === f.block).map(d => d.c))].sort().map(c => ({ v: c, t: c })) : [];
+  const didis = (f.block && f.cm) ? ds.filter(d => d.b === f.block && d.c === f.cm).map(d => ({ v: d.i, t: d.i + ' – ' + d.n })) : [];
+  return `<h1 class="screen">${L('दीदी चुनें', 'Select didi')}</h1>
+    ${field('भरने वाले का नाम', 'Filled by', txt('f.filledBy', 'autocomplete="name"'))}
+    ${field('ब्लॉक', 'Block', sel('f.block', blocks, 'चुनें / Select'))}
+    ${field('चेंज मेकर (CM) का नाम', 'CM name', sel('f.cm', cms, f.block ? 'चुनें / Select' : 'पहले ब्लॉक चुनें / Select block first', !f.block))}
+    ${field('दीदी आईडी', 'Didi ID', sel('f.didiId', didis, f.cm ? 'चुनें / Select' : 'पहले CM चुनें / Select CM first', !f.cm))}
+    ${field('व्यवसाय का प्रकार', 'Type of business', txt('f.bizType'))}
+    ${errBox()}
+    <div class="actions"><button class="btn" data-act="s1next">${L('आगे बढ़ें', 'Proceed')}</button></div>`;
+};
+
+function reviewItemsHTML(rv) {
+  const items = rv.items || [];
+  if (!items.length) return `<div class="none">${L('कोई समस्या नहीं मिली', 'No issue found')}</div>`;
+  return items.map(it => {
+    let name;
+    if (it.key === 'bk') name = L('बहीखाता नहीं रखा गया', 'Bookkeeping not maintained');
+    else if (it.key === 'sarathi') name = L('सारथी प्रविष्टि छूट गई', 'Missed Sarathi entry');
+    else { const n = +String(it.key).slice(1) - 1; name = L(CHECK_NAMES[n][0], CHECK_NAMES[n][1]); }
+    const body = it.key === 'sarathi'
+      ? `<dl><dt>${L('कार्रवाई', 'Action')}</dt><dd>${L(SARATHI_HI, SARATHI_EN)}</dd></dl>`
+      : `<dl><dt>${L('कारण', 'Reason')}</dt><dd>${esc(it.reason)}</dd>
+           <dt>${L('कार्रवाई', 'Action')}</dt><dd>${esc(it.action)}</dd>
+           <dt>${L('फॉलो-अप तिथि', 'Follow-up date')}</dt><dd>${esc(fmtDate(it.followUp))}</dd></dl>`;
+    return `<div class="review-item"><div class="name">${name}</div>${body}</div>`;
+  }).join('');
+}
+
+S.s2 = () => {
+  const rv = lastReview(state.f.didiId);
+  return `${title('पिछली समीक्षा', 'Last review')}
+    ${rv && rv.at ? `<p class="hint">${L('समीक्षा की तिथि: ' + fmtDate(iso(new Date(rv.at))), 'Review date: ' + fmtDate(iso(new Date(rv.at))))}</p>` : ''}
+    ${rv ? reviewItemsHTML(rv) : ''}
+    <div class="actions">
+      <button class="btn" data-act="toFollowUp">${L('फॉलो अप', 'Follow Up')}</button>
+      <button class="btn" data-act="toNewReview">${L('नई समीक्षा', 'New Review')}</button>
+      ${backBtn()}
+    </div>`;
+};
+
+S.s3 = () => `${title('समस्या का प्रकार', 'Type of problem')}
+  <button class="choice${state.problem === 'bookkeeping' ? ' sel' : ''}" data-act="pickProblem" data-v="bookkeeping">${L('बहीखाता में कोई प्रविष्टि नहीं', 'No Bookkeeping Entry')}</button>
+  <button class="choice${state.problem === 'other' ? ' sel' : ''}" data-act="pickProblem" data-v="other">${L('अन्य समस्या', 'Other problem')}</button>
+  <div class="actions">${backBtn()}</div>`;
+
+S.s4 = () => `${title('प्रविष्टि न होने का कारण', 'Reason for no entry')}
+  <button class="choice${state.bkReason === 'notMaintained' ? ' sel' : ''}" data-act="pickBk" data-v="notMaintained">${L('दीदी ने बहीखाता नहीं रखा', 'Didi did not maintain bookkeeping')}</button>
+  <button class="choice${state.bkReason === 'missedSarathi' ? ' sel' : ''}" data-act="pickBk" data-v="missedSarathi">${L('सारथी प्रविष्टि छूट गई', 'Missed Sarathi entry')}</button>
+  <div class="actions">${backBtn()}</div>`;
+
+S.s5a = () => `${title('दीदी ने बहीखाता नहीं रखा', 'Didi did not maintain bookkeeping')}
+  ${photoBox('bk.photo', 'बहीखाते के अंतिम भरे हुए पन्ने की फोटो', 'Photo of the last data-entry page of her bookkeeping', true)}
+  ${errBox()}
+  <div class="actions"><button class="btn" data-act="s5aNext">${L('आगे बढ़ें', 'Proceed')}</button>${backBtn()}</div>`;
+
+S.s5b = () => `${title('दीदी ने बहीखाता नहीं रखा', 'Didi did not maintain bookkeeping')}
+  ${field('प्रविष्टि न होने का कारण', 'Reason for no entry', area('bk.reason'))}
+  ${field('सुझाई गई कार्रवाई', 'Action suggested', area('bk.action'))}
+  ${field('अगली फॉलो-अप तिथि', 'Next follow-up date', dateIn('bk.followUp', addDays(today(), 1)), L('आज के बाद की तिथि', 'A date after today'))}
+  ${errBox()}
+  <div class="actions"><button class="btn" data-act="submitBk">${L('जमा करें', 'Submit')}</button>${backBtn()}</div>`;
+
+S.s6 = () => `${title('सारथी प्रविष्टि छूट गई', 'Missed Sarathi entry')}
+  <div class="note">${L(SARATHI_HI, SARATHI_EN)}</div>
+  ${[0, 1, 2, 3].map(i => photoBox('sarathi.' + i, 'डेटा एंट्री बुक की फोटो – सप्ताह ' + (i + 1), 'Photo of data entry book – Week ' + (i + 1), false)).join('')}
+  ${errBox()}
+  <div class="actions"><button class="btn" data-act="submitSarathi">${L('जमा करें', 'Submit')}</button>${backBtn()}</div>`;
+
+function ensureWeekDefaults(i) {
+  const w = state.weeks[i];
+  if (w.touched) return;
+  const t = today();
+  let start;
+  if (i === 0) start = addDays(t, -56);
+  else if (state.weeks[i - 1].end) start = addDays(state.weeks[i - 1].end, 1);
+  else return;
+  let end = addDays(start, 6);
+  if (end > t) end = t;
+  w.start = start;
+  w.end = end;
+}
+
+function weekScreen(i) {
+  ensureWeekDefaults(i);
+  const w = state.weeks[i], t = today(), p = 'weeks.' + i + '.';
+  const steps = '<div class="steps" aria-hidden="true">' + [0,1,2,3,4,5,6,7].map(k => `<i class="${k < i ? 'done' : k === i ? 'cur' : ''}"></i>`).join('') + '</div>';
+  return `${title('सप्ताह ' + (i + 1) + ' (8 में से)', 'Week ' + (i + 1) + ' of 8' + (i === 0 ? ' · oldest week' : i === 7 ? ' · most recent week' : ''))}
+    ${steps}
+    ${field('सप्ताह की शुरुआत की तिथि', 'Week start date', dateIn(p + 'start', '', t))}
+    ${field('सप्ताह के अंत की तिथि', 'Week end date', dateIn(p + 'end', '', t))}
+    ${field('कुल साप्ताहिक बिक्री (₹)', 'Total weekly sales (₹)', num(p + 'sales'))}
+    ${field('कुल साप्ताहिक व्यवसाय खर्च (₹)', 'Total weekly business expenses (₹)', num(p + 'exp'))}
+    ${field('घर खर्च के लिए कुल साप्ताहिक निकासी (₹)', 'Total weekly household (HH) withdrawal (₹)', num(p + 'hh'))}
+    <div class="field"><span class="lbl">${L('कुल साप्ताहिक लाभ (₹)', 'Total weekly profit (₹)')}</span>
+      <div class="amount">
+        <button type="button" class="sign${w.neg ? ' neg' : ''}" data-act="toggleSign" data-i="${i}" aria-pressed="${w.neg}">${w.neg ? L('− घाटा', '− Loss') : L('+ लाभ', '+ Profit')}</button>
+        ${num(p + 'profit')}
+      </div>
+      <span class="hint">${L('घाटा हो तो बाईं ओर का बटन दबाएँ', 'Tap the button on the left if it was a loss')}</span>
+    </div>
+    ${errBox()}
+    <div class="actions"><button class="btn" data-act="weekNext" data-i="${i}">${i < 7 ? L('अगला सप्ताह', 'Next week') : L('आगे बढ़ें', 'Proceed')}</button>${backBtn()}</div>`;
+}
+for (let i = 0; i < 8; i++) S['w' + (i + 1)] = () => weekScreen(i);
+
+S.s8 = () => {
+  const src = state.credit.source;
+  return `${title('बकाया उधार', 'Outstanding credit')}
+    ${field('कुल बकाया उधार (₹)', 'Total outstanding credit (₹)', num('credit.amount'), L('दीदी के बताए अनुसार या उधार बही से', 'As said by didi or from the credit book'))}
+    <div class="field"><span class="lbl">${L('स्रोत', 'Source')}</span>
+      <div class="row">
+        <button type="button" class="choice${src === 'didi' ? ' sel' : ''}" data-act="pickSource" data-v="didi">${L('दीदी ने बताया', 'Said by didi')}</button>
+        <button type="button" class="choice${src === 'book' ? ' sel' : ''}" data-act="pickSource" data-v="book">${L('उधार बही देखी', 'Checked credit book')}</button>
+      </div>
+    </div>
+    ${errBox()}
+    <div class="actions"><button class="btn" data-act="s8next">${L('जमा करें और विश्लेषण देखें', 'Submit & see analysis')}</button>${backBtn()}</div>`;
+};
+
+function shortAmt(n) {
+  const a = Math.abs(n);
+  if (a >= 100000) return (n / 100000).toFixed(a >= 1000000 ? 0 : 1) + 'L';
+  if (a >= 1000) return (n / 1000).toFixed(a >= 10000 ? 0 : 1) + 'k';
+  return String(Math.round(n));
+}
+function barGraph(key, hi, en) {
+  const vals = state.weeks.map(w => weekNums(w)[key]);
+  const max = Math.max(1, ...vals);
+  const W = 320, H = 150, top = 18, bottom = 22, ch = H - top - bottom, bw = 28, gap = (W - bw * 8) / 9;
+  const bars = vals.map((v, i) => {
+    const h = Math.max(1, (v / max) * ch), x = gap + i * (bw + gap), y = top + ch - h;
+    return `<rect x="${x}" y="${y}" width="${bw}" height="${h}" fill="${i < 4 ? '#C99E89' : '#693D30'}"/>
+      <text x="${x + bw / 2}" y="${y - 4}" text-anchor="middle" font-size="9" fill="#693D30">${shortAmt(v)}</text>
+      <text x="${x + bw / 2}" y="${H - 6}" text-anchor="middle" font-size="10" fill="#693D30">W${i + 1}</text>`;
+  }).join('');
+  const label = en + ': ' + vals.map((v, i) => 'W' + (i + 1) + ' ' + sbapINR(v)).join(', ');
+  return `<div class="graph"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">
+      <line x1="0" y1="${top + ch}" x2="${W}" y2="${top + ch}" stroke="#ADB6BE" stroke-width="1"/>${bars}</svg>
+    <div class="legend"><span class="old">${hi} 1–4 / ${en.split(' ')[0]} weeks 1–4</span><span>5–8 / weeks 5–8</span></div></div>`;
+}
+function figRow(hi, en, val, total) { return `<dt${total ? ' class="total"' : ''}>${L(hi, en)}</dt><dd${total ? ' class="total"' : ''}>${val}</dd>`; }
+function figures(n, a) {
+  const t = a.t, s = settings();
+  switch (n) {
+    case 0: return figRow('कुल बिक्री', 'Total sales', sbapINR(t.sales)) +
+      figRow('कुल व्यवसाय खर्च', 'Total business expense', '− ' + sbapINR(t.exp)) +
+      figRow('कुल घर खर्च निकासी', 'Total HH withdrawal', '− ' + sbapINR(t.hh)) +
+      (s.CASH_SUBTRACT_PROFIT ? figRow('कुल लाभ', 'Total profit', '− ' + sbapINR(t.profit)) : '') +
+      figRow('नकद शेष', 'Cash balance', sbapINR(t.cash), true);
+    case 1: return figRow('बिक्री सप्ताह 1–4', 'Sales weeks 1–4', sbapINR(t.s1)) +
+      figRow('बिक्री सप्ताह 5–8', 'Sales weeks 5–8', sbapINR(t.s2)) +
+      figRow('बदलाव', 'Change', sbapPct(t.salesChange, true), true);
+    case 2: return figRow('खर्च सप्ताह 1–4', 'Expense weeks 1–4', sbapINR(t.e1)) +
+      figRow('खर्च सप्ताह 5–8', 'Expense weeks 5–8', sbapINR(t.e2)) +
+      figRow('बदलाव', 'Change', sbapPct(t.expChange, true), true);
+    case 3: return figRow(s.HH_INCLUDES_PROFIT ? 'घर खर्च निकासी + लाभ' : 'घर खर्च निकासी', s.HH_INCLUDES_PROFIT ? 'HH withdrawal + profit' : 'HH withdrawal', sbapINR(t.hhAmt)) +
+      figRow('कुल बिक्री', 'Total sales', sbapINR(t.sales)) +
+      figRow('बिक्री का %', '% of sales', sbapPct(t.hhPct)) +
+      figRow('सीमा (' + s.HH_LIMIT_PCT + '%)', 'Limit (' + s.HH_LIMIT_PCT + '%)', sbapINR(t.hhLimit), true);
+    case 4: return figRow('बकाया उधार', 'Outstanding credit', sbapINR(t.credit)) +
+      figRow('औसत मासिक बिक्री', 'Average monthly sales', sbapINR(t.avgMonthly)) +
+      figRow('औसत मासिक बिक्री का %', '% of average monthly sales', sbapPct(t.creditPct)) +
+      figRow('सीमा (' + s.CREDIT_LIMIT_PCT + '%)', 'Limit (' + s.CREDIT_LIMIT_PCT + '%)', sbapINR(t.creditLimit), true);
+  }
+  return '';
+}
+function graphFor(n) {
+  if (n === 1) return barGraph('sales', 'बिक्री', 'Sales');
+  if (n === 2) return barGraph('exp', 'खर्च', 'Expense');
+  return '';
+}
+function activeIssue(a) {
+  for (let n = 0; n < 5; n++) if (a.flags[n] && !(state.issues[n + 1] && state.issues[n + 1].done)) return n;
+  return -1;
+}
+
+S.s9 = () => {
+  const a = currentAnalysis(), act = activeIssue(a);
+  const anyFlag = a.flags.some(Boolean);
+  const cards = CHECK_NAMES.map((nm, n) => {
+    const flag = a.flags[n], done = state.issues[n + 1] && state.issues[n + 1].done;
+    let foot = '';
+    if (flag && done) {
+      foot = `<div class="recorded"><b>${L('✓ दर्ज', '✓ Recorded')}</b><button data-act="openIssue" data-n="${n}">${L('बदलें', 'Edit')}</button></div>`;
+    } else if (flag) {
+      foot = `<div class="cta"><button class="btn proceed" data-act="openIssue" data-n="${n}"${n === act ? '' : ' disabled'}>${L('आगे बढ़ें', 'Proceed')}</button>
+        ${n !== act ? `<span class="hint">${L('पहले ऊपर की समस्या पूरी करें', 'Complete the issue above first')}</span>` : ''}</div>`;
+    }
+    return `<section class="card${flag ? ' flag' : ''}" id="card${n}">
+      <div class="head"><span class="num">${n + 1}</span><div class="title">${L(nm[0], nm[1])}</div>
+        <span class="tag ${flag ? 'bad' : 'ok'}">${flag ? L('⚠ समस्या', 'Issue') : L('✓ ठीक', 'OK')}</span></div>
+      <dl class="figs">${figures(n, a)}</dl>${graphFor(n)}${foot}</section>`;
+  }).join('');
+  return `${title('विश्लेषण', 'Analysis')}${cards}
+    ${anyFlag ? '' : `<div class="none">${L('कोई समस्या नहीं मिली', 'No issue found')}</div>`}
+    ${errBox()}
+    <div class="actions"><button class="btn" id="submitReview" data-act="submitReview"${act === -1 ? '' : ' disabled'}>${L('समीक्षा जमा करें', 'Submit review')}</button>${backBtn()}</div>`;
+};
+
+S.s10 = () => {
+  const n = state.editing, a = currentAnalysis(), p = 'issues.' + (n + 1) + '.';
+  if (!state.issues[n + 1]) state.issues[n + 1] = { reason: '', action: '', followUp: '', done: false };
+  return `${title(CHECK_NAMES[n][0], CHECK_NAMES[n][1])}
+    <section class="card flag"><dl class="figs">${figures(n, a)}</dl>${graphFor(n)}</section>
+    ${field('समस्या का कारण', 'Reason for the problem', area(p + 'reason'))}
+    ${field('समस्या कम करने के लिए सुझाई गई कार्रवाई', 'Action suggested to mitigate the problem', area(p + 'action'))}
+    ${field('फॉलो-अप तिथि', 'Follow-up date', dateIn(p + 'followUp', addDays(today(), 1)), L('आज के बाद की तिथि', 'A date after today'))}
+    ${errBox()}
+    <div class="actions"><button class="btn" data-act="submitIssue">${L('जमा करें', 'Submit')}</button>${backBtn()}</div>`;
+};
+
+S.s11 = () => `<div class="saved">
+    <div class="mark" aria-hidden="true">✓</div>
+    ${L('सहेजा गया', 'Saved')}
+    <p>${L('यह प्रविष्टि इस फ़ोन में सहेज ली गई है। इंटरनेट मिलते ही यह अपने आप शीट में चली जाएगी।', 'This entry is saved on this phone. It goes to the sheet automatically when there is internet.')}</p>
+  </div>
+  <div class="actions"><button class="btn" data-act="newEntry">${L('नई प्रविष्टि', 'New entry')}</button></div>`;
+
+S.s12 = () => {
+  if (!state.fu.date) state.fu.date = today();
+  return `${title('फॉलो अप', 'Follow Up')}
+    ${field('अपडेट', 'Update', area('fu.update'))}
+    ${field('अपडेट की तिथि', 'Date of update', dateIn('fu.date', '', today()))}
+    ${photoBox('fu.photos.0', 'पिछले 4 सप्ताह के बहीखाते की फोटो 1', 'Photo of the last 4 weeks of bookkeeping 1', true)}
+    ${[1, 2, 3].map(i => photoBox('fu.photos.' + i, 'पिछले 4 सप्ताह के बहीखाते की फोटो ' + (i + 1), 'Photo of the last 4 weeks of bookkeeping ' + (i + 1), false)).join('')}
+    ${errBox()}
+    <div class="actions"><button class="btn" data-act="submitFollowUp">${L('जमा करें', 'Submit')}</button>${backBtn()}</div>`;
+};
+
+function render(toTop) {
+  document.getElementById('app').innerHTML = S[state.screen]();
+  if (toTop) window.scrollTo(0, 0);
+  saveDraftSoon();
+}
+
+// ───────────────────────── Validation helpers ─────────────────────────
+const E = {
+  required: (hi, en) => [hi + ' भरना ज़रूरी है', en + ' is required'],
+  futureOnly: (hi, en) => [hi + ' आज के बाद की होनी चाहिए', en + ' must be after today']
+};
+function blank(v) { return v === null || v === undefined || String(v).trim() === ''; }
+
+// ───────────────────────── Actions ─────────────────────────
+const ACT = {
+  back,
+  s1next() {
+    const f = state.f, e = [];
+    if (blank(f.filledBy)) e.push(E.required('भरने वाले का नाम', 'Filled by'));
+    if (blank(f.block)) e.push(E.required('ब्लॉक', 'Block'));
+    if (blank(f.cm)) e.push(E.required('CM का नाम', 'CM name'));
+    if (blank(f.didiId)) e.push(E.required('दीदी आईडी', 'Didi ID'));
+    if (blank(f.bizType)) e.push(E.required('व्यवसाय का प्रकार', 'Type of business'));
+    if (e.length) return showErrors(e);
+    DB.set('filledBy', f.filledBy.trim()).catch(() => {});
+    go(lastReview(f.didiId) ? 's2' : 's3');
+  },
+  toFollowUp() { go('s12'); },
+  toNewReview() { go('s3'); },
+  pickProblem(b) { state.problem = b.dataset.v; go(state.problem === 'bookkeeping' ? 's4' : 'w1'); },
+  pickBk(b) { state.bkReason = b.dataset.v; go(state.bkReason === 'notMaintained' ? 's5a' : 's6'); },
+  s5aNext() {
+    if (!state.bk.photo) return showErrors([['अंतिम पन्ने की फोटो लेना ज़रूरी है', 'Photo of the last data-entry page is required']]);
+    go('s5b');
+  },
+  submitBk() {
+    const b = state.bk, e = [];
+    if (blank(b.reason)) e.push(E.required('प्रविष्टि न होने का कारण', 'Reason for no entry'));
+    if (blank(b.action)) e.push(E.required('सुझाई गई कार्रवाई', 'Action suggested'));
+    if (blank(b.followUp)) e.push(E.required('अगली फॉलो-अप तिथि', 'Next follow-up date'));
+    else if (b.followUp <= today()) e.push(E.futureOnly('फॉलो-अप तिथि', 'Follow-up date'));
+    if (e.length) return showErrors(e);
+    saveSubmission('review');
+  },
+  submitSarathi() { saveSubmission('review'); },
+  toggleSign(b) {
+    const w = state.weeks[+b.dataset.i];
+    w.neg = !w.neg;
+    b.classList.toggle('neg', w.neg);
+    b.setAttribute('aria-pressed', w.neg);
+    b.innerHTML = w.neg ? L('− घाटा', '− Loss') : L('+ लाभ', '+ Profit');
+    saveDraftSoon();
+  },
+  weekNext(b) {
+    const i = +b.dataset.i, w = state.weeks[i], t = today(), e = [];
+    if (blank(w.start)) e.push(E.required('शुरुआत की तिथि', 'Week start date'));
+    if (blank(w.end)) e.push(E.required('अंत की तिथि', 'Week end date'));
+    if (w.start && w.end && w.end < w.start) e.push(['अंत की तिथि शुरुआत की तिथि से पहले नहीं हो सकती', 'End date cannot be before the start date']);
+    if ((w.start && w.start > t) || (w.end && w.end > t)) e.push(['भविष्य की तिथि नहीं डाल सकते', 'Dates cannot be in the future']);
+    if (i > 0 && w.start && state.weeks[i - 1].end && w.start <= state.weeks[i - 1].end) {
+      e.push(['यह सप्ताह पिछले सप्ताह (' + fmtDate(state.weeks[i - 1].end) + ') के बाद शुरू होना चाहिए', 'This week must start after the previous week ends (' + fmtDate(state.weeks[i - 1].end) + ')']);
+    }
+    [['sales', 'बिक्री', 'Sales'], ['exp', 'व्यवसाय खर्च', 'Business expenses'], ['hh', 'घर खर्च निकासी', 'HH withdrawal'], ['profit', 'लाभ', 'Profit']]
+      .forEach(([k, hi, en]) => { if (blank(w[k])) e.push([hi + ' भरें (0 भी चलेगा)', en + ' is required (0 is allowed)']); });
+    if (e.length) return showErrors(e);
+    go(i < 7 ? 'w' + (i + 2) : 's8');
+  },
+  pickSource(b) { state.credit.source = b.dataset.v; render(); },
+  s8next() {
+    const e = [];
+    if (blank(state.credit.amount)) e.push(E.required('कुल बकाया उधार', 'Total outstanding credit') .map((s, k) => s + (k ? ' (0 is allowed)' : ' (0 भी चलेगा)')));
+    if (!state.credit.source) e.push(['स्रोत चुनें', 'Select the source']);
+    if (e.length) return showErrors(e);
+    go('s9');
+  },
+  openIssue(b) { state.editing = +b.dataset.n; go('s10'); },
+  submitIssue() {
+    const d = state.issues[state.editing + 1], e = [];
+    if (blank(d.reason)) e.push(E.required('समस्या का कारण', 'Reason for the problem'));
+    if (blank(d.action)) e.push(E.required('सुझाई गई कार्रवाई', 'Action suggested'));
+    if (blank(d.followUp)) e.push(E.required('फॉलो-अप तिथि', 'Follow-up date'));
+    else if (d.followUp <= today()) e.push(E.futureOnly('फॉलो-अप तिथि', 'Follow-up date'));
+    if (e.length) return showErrors(e);
+    d.done = true;
+    returnTo('s9');
+    render(false);
+    const next = document.querySelector('.proceed:not([disabled])') || document.getElementById('submitReview');
+    if (next) next.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  },
+  submitReview() {
+    const a = currentAnalysis();
+    if (activeIssue(a) !== -1) return showErrors([['पहले सभी समस्याएँ पूरी करें', 'Complete all flagged issues first']]);
+    saveSubmission('review');
+  },
+  submitFollowUp() {
+    const u = state.fu, e = [];
+    if (blank(u.update)) e.push(E.required('अपडेट', 'Update'));
+    if (blank(u.date)) e.push(E.required('अपडेट की तिथि', 'Date of update'));
+    else if (u.date > today()) e.push(['अपडेट की तिथि भविष्य की नहीं हो सकती', 'Date of update cannot be in the future']);
+    if (!u.photos[0]) e.push(['फोटो 1 लेना ज़रूरी है', 'Photo 1 is required']);
+    if (e.length) return showErrors(e);
+    saveSubmission('followup');
+  },
+  async newEntry() {
+    state = blankState((await DB.get('filledBy')) || state.f.filledBy);
+    await DB.del('draft').catch(() => {});
+    clearBanner('draft');
+    render(true);
+  },
+  removePhoto(b) { setPath(state, b.dataset.path, null); render(); },
+  syncNow() { sync(true); },
+  refreshLists() { refreshMaster(false); },
+  exportJSON() { exportPending('json'); },
+  exportCSV() { exportPending('csv'); },
+  install() { if (installEvt) { installEvt.prompt(); installEvt = null; document.getElementById('installBtn').hidden = true; } },
+  update() { if (waitingSW) waitingSW.postMessage('SKIP_WAITING'); },
+  async startFresh() { await ACT.newEntry(); }
+};
+
+// ───────────────────────── Photos ─────────────────────────
+function compressImage(file) {
+  return new Promise((res, rej) => {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.onload = () => {
+      const s = Math.min(1, CONFIG.PHOTO_MAX_PX / Math.max(img.width, img.height));
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url);
+      res(c.toDataURL('image/jpeg', CONFIG.PHOTO_QUALITY));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); rej(new Error('photo')); };
+    img.src = url;
+  });
+}
+async function handlePhoto(el) {
+  const file = el.files && el.files[0];
+  if (!file) return;
+  try {
+    setPath(state, el.dataset.photo, await compressImage(file));
+    render();
+  } catch (e) {
+    showErrors([['फोटो नहीं पढ़ी जा सकी, फिर से लें', 'Could not read the photo. Take it again.']]);
+  }
+}
+
+// ───────────────────────── Saving a submission ─────────────────────────
+function uuid() {
+  if (crypto.randomUUID) return crypto.randomUUID();
+  const b = crypto.getRandomValues(new Uint8Array(16));
+  b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+  const h = [...b].map(x => x.toString(16).padStart(2, '0')).join('');
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+}
+
+/** Mirrors the issue summary that Code.gs writes, so Screen 2 works before the record syncs. */
+function summarise(rec) {
+  const items = [], lines = [];
+  if (rec.problem === 'bookkeeping') {
+    if (rec.bkReason === 'missedSarathi') { items.push({ key: 'sarathi' }); lines.push(SARATHI_SUMMARY); }
+    else {
+      const b = rec.bk;
+      items.push({ key: 'bk', reason: b.reason, action: b.action, followUp: b.followUp });
+      lines.push('Bookkeeping not maintained – Reason: ' + b.reason + ' | Action: ' + b.action + ' | Follow-up: ' + fmtDate(b.followUp));
+    }
+  } else {
+    const a = sbapAnalyse(rec.weeks, rec.credit.amount, settings());
+    a.flags.forEach((f, n) => {
+      if (!f) return;
+      const d = rec.issues[String(n + 1)] || {};
+      items.push({ key: 'c' + (n + 1), reason: d.reason, action: d.action, followUp: d.followUp });
+      lines.push(CHECK_NAMES[n][1] + ' – Reason: ' + d.reason + ' | Action: ' + d.action + ' | Follow-up: ' + fmtDate(d.followUp));
+    });
+    if (!items.length) lines.push('No issue found');
+  }
+  return { items, summary: lines.join('\n') };
+}
+
+async function saveSubmission(type) {
+  const f = state.f;
+  const rec = {
+    uuid: uuid(), type, createdAt: new Date().toISOString(), deviceId, appVersion: CONFIG.APP_VERSION,
+    filledBy: f.filledBy.trim(), block: f.block, cm: f.cm, didiId: f.didiId, didiName: didiName(f.didiId), bizType: f.bizType.trim(),
+    status: 'pending', attempts: 0
+  };
+  if (type === 'followup') {
+    rec.fu = { update: state.fu.update.trim(), date: state.fu.date, photos: state.fu.photos.slice() };
+    const lr = lastReview(f.didiId);
+    rec.lastReviewSummary = lr ? (lr.summary || '') : '';
+  } else {
+    rec.problem = state.problem;
+    if (state.problem === 'bookkeeping') {
+      rec.bkReason = state.bkReason;
+      if (state.bkReason === 'notMaintained') rec.bk = { photo: state.bk.photo, reason: state.bk.reason.trim(), action: state.bk.action.trim(), followUp: state.bk.followUp };
+      else rec.sarathiPhotos = state.sarathi.slice();
+    } else {
+      rec.weeks = state.weeks.map(w => Object.assign({ start: w.start, end: w.end }, weekNums(w)));
+      rec.credit = { amount: +state.credit.amount || 0, source: state.credit.source };
+      const a = currentAnalysis();
+      rec.issues = {};
+      a.flags.forEach((fl, n) => {
+        if (fl) { const d = state.issues[n + 1]; rec.issues[String(n + 1)] = { reason: d.reason.trim(), action: d.action.trim(), followUp: d.followUp }; }
+      });
+    }
+    const s = summarise(rec);
+    localReviews[f.didiId] = { ts: Date.now(), at: rec.createdAt, summary: s.summary, items: s.items };
+    await DB.set('localReviews', localReviews);
+  }
+  try {
+    await DB.putRec(rec);
+  } catch (e) {
+    return showErrors([['फ़ोन में सहेजा नहीं जा सका। फ़ोन की जगह खाली करें और फिर से जमा करें।', 'Could not save on this phone. Free up phone storage and submit again.']]);
+  }
+  await DB.del('draft').catch(() => {});
+  state.hist = [];
+  state.screen = 's11';
+  render(true);
+  updateStatus();
+  sync(false);
+}
+
+// ───────────────────────── Sync ─────────────────────────
+let syncing = false, retryTimer = null, retryDelay = 5000, lastError = '';
+function apiReady() { return /^https:\/\/script\.google\.com\/.+\/exec$/.test(CONFIG.API_URL); }
+function fetchT(url, opts, ms) {
+  const c = new AbortController();
+  const t = setTimeout(() => c.abort(), ms);
+  return fetch(url, Object.assign({ signal: c.signal, redirect: 'follow' }, opts)).finally(() => clearTimeout(t));
+}
+function payloadOf(r) { const { status, attempts, lastError, syncedAt, ...p } = r; return p; }
+function makeBatches(recs) {
+  const out = [];
+  let cur = [], size = 0;
+  recs.forEach(r => {
+    const s = JSON.stringify(payloadOf(r)).length;
+    if (cur.length && (cur.length >= CONFIG.BATCH_MAX_RECORDS || size + s > CONFIG.BATCH_MAX_BYTES)) { out.push(cur); cur = []; size = 0; }
+    cur.push(r); size += s;
+  });
+  if (cur.length) out.push(cur);
+  return out;
+}
+function scheduleRetry() {
+  clearTimeout(retryTimer);
+  retryTimer = setTimeout(() => sync(false), retryDelay);
+  retryDelay = Math.min(retryDelay * 2, 300000);
+}
+async function markSynced(rec) {
+  // Keep a light copy (no photos) as proof of what was sent; pruned after 30 days.
+  const light = Object.assign({}, rec, { status: 'synced', syncedAt: new Date().toISOString() });
+  if (light.bk) light.bk = Object.assign({}, light.bk, { photo: light.bk.photo ? 'sent' : '' });
+  if (light.sarathiPhotos) light.sarathiPhotos = light.sarathiPhotos.map(p => p ? 'sent' : null);
+  if (light.fu) light.fu = Object.assign({}, light.fu, { photos: light.fu.photos.map(p => p ? 'sent' : null) });
+  await DB.putRec(light);
+}
+async function sync(manual) {
+  if (syncing) return;
+  if (!navigator.onLine) { if (manual) toast(['इंटरनेट नहीं है', 'No internet connection']); updateStatus(); return; }
+  if (!apiReady()) { lastError = 'API_URL is not set in index.html'; updateStatus(); return; }
+  const pending = (await DB.allRecs()).filter(r => r.status !== 'synced').sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  if (!pending.length) { if (manual) refreshMaster(true); updateStatus(); return; }
+  syncing = true; updateStatus();
+  let failed = false;
+  try {
+    for (const batch of makeBatches(pending)) {
+      const res = await fetchT(CONFIG.API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ records: batch.map(payloadOf) })
+      }, 180000);
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || 'Server error');
+      const byId = new Map((data.results || []).map(r => [r.uuid, r]));
+      for (const rec of batch) {
+        const r = byId.get(rec.uuid);
+        if (r && r.ok) await markSynced(rec);
+        else { failed = true; rec.attempts = (rec.attempts || 0) + 1; rec.lastError = r ? r.error : 'No reply for this record'; await DB.putRec(rec); lastError = rec.lastError; }
+      }
+    }
+    await DB.set('lastSync', new Date().toISOString());
+    if (!failed) { retryDelay = 5000; lastError = ''; }
+    else scheduleRetry();
+    refreshMaster(true);
+  } catch (e) {
+    lastError = e.name === 'AbortError' ? 'Upload timed out' : String(e.message || e);
+    scheduleRetry();
+  } finally {
+    syncing = false;
+    updateStatus();
+  }
+}
+async function refreshMaster(quiet) {
+  if (!navigator.onLine) { if (!quiet) toast(['इंटरनेट नहीं है', 'No internet connection']); return; }
+  if (!apiReady()) { if (!quiet) toast(['ऐप में शीट का लिंक नहीं डाला गया है', 'The sheet link (API_URL) is not set in the app']); return; }
+  try {
+    const res = await fetchT(CONFIG.API_URL + '?action=master', {}, 45000);
+    const d = await res.json();
+    if (!d.ok) throw new Error(d.error);
+    master = { didis: d.didis, settings: d.settings, latestReviews: d.latestReviews || {}, fetchedAt: new Date().toISOString(), warnings: d.warnings || [] };
+    await DB.set('master', master);
+    // Drop local review copies the server now knows about
+    Object.keys(localReviews).forEach(id => {
+      const s = master.latestReviews[id];
+      if (s && (s.ts || 0) >= (localReviews[id].ts || 0)) delete localReviews[id];
+    });
+    await DB.set('localReviews', localReviews);
+    if (!quiet) toast(['दीदी सूची अपडेट हो गई', 'Didi list updated']);
+    if (state.screen === 's1') render();
+    updateStatus();
+  } catch (e) {
+    if (!quiet) toast(['सूची डाउनलोड नहीं हुई: ' + (e.message || e), 'Could not download the list: ' + (e.message || e)]);
+  }
+}
+async function prune() {
+  const cutoff = Date.now() - 30 * 864e5;
+  for (const r of await DB.allRecs()) {
+    if (r.status === 'synced' && r.syncedAt && Date.parse(r.syncedAt) < cutoff) await DB.delRec(r.uuid);
+  }
+}
+
+// ───────────────────────── Export fallback ─────────────────────────
+function download(name, text, type) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type }));
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+async function exportPending(kind) {
+  const recs = (await DB.allRecs()).filter(r => r.status !== 'synced');
+  if (!recs.length) return toast(['भेजने के लिए कुछ बाकी नहीं है', 'Nothing pending to export']);
+  const stamp = today() + '_' + deviceId.slice(0, 6);
+  if (kind === 'json') return download('sbap_pending_' + stamp + '.json', JSON.stringify(recs.map(payloadOf), null, 1), 'application/json');
+  const cols = ['uuid', 'type', 'createdAt', 'filledBy', 'block', 'cm', 'didiId', 'didiName', 'bizType', 'problem', 'bkReason',
+    'bkReason_text', 'bkAction', 'bkFollowUp'];
+  for (let w = 1; w <= 8; w++) cols.push('w' + w + '_start', 'w' + w + '_end', 'w' + w + '_sales', 'w' + w + '_exp', 'w' + w + '_hh', 'w' + w + '_profit');
+  cols.push('credit', 'creditSource', 'issues', 'fuUpdate', 'fuDate', 'photos', 'lastError');
+  const q = v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+  const rows = recs.map(r => {
+    const o = { uuid: r.uuid, type: r.type, createdAt: r.createdAt, filledBy: r.filledBy, block: r.block, cm: r.cm, didiId: r.didiId,
+      didiName: r.didiName, bizType: r.bizType, problem: r.problem, bkReason: r.bkReason,
+      bkReason_text: r.bk && r.bk.reason, bkAction: r.bk && r.bk.action, bkFollowUp: r.bk && r.bk.followUp,
+      credit: r.credit && r.credit.amount, creditSource: r.credit && r.credit.source, issues: r.issues ? JSON.stringify(r.issues) : '',
+      fuUpdate: r.fu && r.fu.update, fuDate: r.fu && r.fu.date, lastError: r.lastError,
+      photos: 'Photos are only in the JSON export' };
+    (r.weeks || []).forEach((w, i) => { ['start', 'end', 'sales', 'exp', 'hh', 'profit'].forEach(k => { o['w' + (i + 1) + '_' + k] = w[k]; }); });
+    return cols.map(c => q(o[c])).join(',');
+  });
+  download('sbap_pending_' + stamp + '.csv', '\ufeff' + cols.join(',') + '\n' + rows.join('\n'), 'text/csv');
+}
+
+// ───────────────────────── Status, banners, toast ─────────────────────────
+async function updateStatus() {
+  const recs = await DB.allRecs().catch(() => []);
+  const pending = recs.filter(r => r.status !== 'synced').length;
+  const ls = await DB.get('lastSync').catch(() => null);
+  const on = navigator.onLine;
+  const el = document.getElementById('status');
+  el.className = 'status' + (on ? ' on' : '');
+  el.innerHTML = `<span class="grp"><span class="dot"></span><span class="hi">${on ? 'ऑनलाइन' : 'ऑफ़लाइन'}</span><span class="en">${on ? 'Online' : 'Offline'}</span></span>
+    <span class="grp"><span class="hi">बाकी: ${pending}</span><span class="en">Pending</span></span>
+    <span class="grp"><span class="hi">अंतिम सिंक: ${ls ? fmtDateTime(ls) : '—'}</span><span class="en">Last sync</span></span>
+    <button data-act="syncNow"${syncing ? ' disabled' : ''}>${syncing ? 'सिंक हो रहा है… / Syncing' : 'अभी सिंक करें / Sync now'}</button>`;
+  const meta = document.getElementById('meta');
+  meta.textContent = 'Version ' + CONFIG.APP_VERSION + ' · Device ' + deviceId.slice(0, 8) +
+    (master ? ' · List updated ' + fmtDateTime(master.fetchedAt) + ' (' + master.didis.length + ' didis)' : '') +
+    (master && master.warnings && master.warnings.length ? ' · ' + master.warnings.join('; ') : '') +
+    (lastError ? ' · Last sync problem: ' + lastError : '');
+}
+function setBanner(id, html) {
+  clearBanner(id);
+  const d = document.createElement('div');
+  d.className = 'banner'; d.id = 'b_' + id; d.innerHTML = html;
+  document.getElementById('banners').appendChild(d);
+}
+function clearBanner(id) { const b = document.getElementById('b_' + id); if (b) b.remove(); }
+let toastTimer;
+function toast([hi, en]) {
+  setBanner('toast', `<span>${L(esc(hi), esc(en))}</span>`);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => clearBanner('toast'), 4500);
+}
+
+// ───────────────────────── Events ─────────────────────────
+const app = document.getElementById('app');
+app.addEventListener('input', e => {
+  const el = e.target, p = el.dataset.bind;
+  if (!p) return;
+  let v = el.value;
+  if (el.dataset.num !== undefined) {
+    const clean = v.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1');
+    if (clean !== v) el.value = clean;
+    v = clean;
+  }
+  setPath(state, p, v);
+  const m = p.match(/^weeks\.(\d)\.(start|end)$/);
+  if (m) state.weeks[+m[1]].touched = true;
+  saveDraftSoon();
+});
+app.addEventListener('change', e => {
+  const el = e.target;
+  if (el.dataset.photo !== undefined) return handlePhoto(el);
+  const p = el.dataset.bind;
+  if (p === 'f.block') { state.f.block = el.value; state.f.cm = ''; state.f.didiId = ''; render(); }
+  else if (p === 'f.cm') { state.f.cm = el.value; state.f.didiId = ''; render(); }
+});
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]');
+  if (!b || b.disabled || !ACT[b.dataset.act]) return;
+  e.preventDefault();
+  ACT[b.dataset.act](b);
+});
+window.addEventListener('online', () => { updateStatus(); refreshMaster(true); sync(false); });
+window.addEventListener('offline', updateStatus);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && navigator.onLine) sync(false); });
+
+// ───────────────────────── Service worker, install ─────────────────────────
+let waitingSW = null, installEvt = null;
+function showUpdate(sw) {
+  waitingSW = sw;
+  setBanner('update', `<span>${L('ऐप का नया संस्करण उपलब्ध है', 'A new version of the app is available')}</span><button data-act="update">${L('अपडेट करें', 'Update')}</button>`);
+}
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./service-worker.js').then(reg => {
+    if (reg.waiting && navigator.serviceWorker.controller) showUpdate(reg.waiting);
+    reg.addEventListener('updatefound', () => {
+      const nw = reg.installing;
+      nw.addEventListener('statechange', () => { if (nw.state === 'installed' && navigator.serviceWorker.controller) showUpdate(nw); });
+    });
+    setInterval(() => reg.update().catch(() => {}), 3600000);
+  }).catch(() => {});
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if (!reloaded) { reloaded = true; location.reload(); } });
+}
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  installEvt = e;
+  document.getElementById('installBtn').hidden = false;
+});
+
+// ───────────────────────── Start ─────────────────────────
+(async function init() {
+  try { if (navigator.storage && navigator.storage.persist) await navigator.storage.persist(); } catch (e) {}
+  deviceId = await DB.get('deviceId');
+  if (!deviceId) { deviceId = uuid(); await DB.set('deviceId', deviceId); }
+  master = (await DB.get('master')) || null;
+  localReviews = (await DB.get('localReviews')) || {};
+  const draft = await DB.get('draft');
+  const fb = (await DB.get('filledBy')) || '';
+  if (draft && draft.screen && draft.screen !== 's11' && S[draft.screen] &&
+      (draft.screen !== 's1' || draft.f.didiId || draft.f.bizType)) {
+    state = Object.assign(blankState(fb), draft);
+    setBanner('draft', `<span>${L('आपकी अधूरी प्रविष्टि वापस लाई गई है', 'Your unfinished entry has been restored')}</span><button class="ghost" data-act="startFresh">${L('नई शुरुआत करें', 'Start fresh')}</button>`);
+  } else {
+    state = blankState(fb);
+  }
+  render(true);
+  await prune().catch(() => {});
+  updateStatus();
+  if (navigator.onLine) { refreshMaster(true); sync(false); }
+})();
+</script>
+</body>
+</html>
