@@ -154,7 +154,34 @@ details.tools .meta{font-size:.75rem;opacity:.8;word-break:break-word}
 </header>
 <div id="status" class="status" aria-live="polite"></div>
 <div id="banners"></div>
-<main id="app"></main>
+<main id="app"><p id="loading"><span class="hi">लोड हो रहा है…</span><span class="en">Loading…</span></p></main>
+<script>
+// Safety net: if anything in the app's code fails, show the error on screen instead of a blank page.
+(function () {
+  function show(msg) {
+    var app = document.getElementById('app');
+    if (!app || document.getElementById('fatal')) return;
+    var box = document.createElement('div');
+    box.id = 'fatal';
+    box.style.cssText = 'color:#9E2B1E;border-left:4px solid #9E2B1E;background:#FBF3F1;padding:12px 14px;margin:12px 0;word-break:break-word';
+    box.innerHTML = '<b>ऐप शुरू नहीं हो पाया / The app could not start</b><br>' +
+      'इस स्क्रीन का फोटो भेजें / Send a screenshot of this screen<br><br><code></code>';
+    box.querySelector('code').textContent = msg;
+    var l = document.getElementById('loading'); if (l) l.remove();
+    app.insertBefore(box, app.firstChild);
+  }
+  window.addEventListener('error', function (e) {
+    show((e.message || 'Error') + (e.lineno ? ' (line ' + e.lineno + ')' : ''));
+  });
+  window.addEventListener('unhandledrejection', function (e) {
+    show('Startup error: ' + ((e.reason && (e.reason.message || e.reason)) || 'unknown'));
+  });
+  // If the main code never starts at all (for example a broken quote in API_URL), say so.
+  setTimeout(function () {
+    if (!window.__sbapStarted) show('The app code did not run. index.html may have been damaged while editing (check the quotes around API_URL).');
+  }, 8000);
+})();
+</script>
 <details class="tools" id="tools">
   <summary><span class="hi">और विकल्प</span><span class="en">More options</span></summary>
   <div class="tl">
@@ -169,10 +196,11 @@ details.tools .meta{font-size:.75rem;opacity:.8;word-break:break-word}
 
 <script>
 'use strict';
+window.__sbapStarted = true;
 // ───────────────────────── CONFIG (edit API_URL after deploying Code.gs) ─────────────────────────
 const CONFIG = {
-  API_URL: 'https://script.google.com/macros/s/AKfycbwO9syNITLenZwP6Cnu7Ffoa5U7TJ0u7jYu50wZDPP-0e_ADkMV2IMIk0dPUSK7_dSFMQ/exec'
-  APP_VERSION: '1.0.0',
+  API_URL: 'PASTE_YOUR_WEB_APP_URL_HERE',   // ends with /exec
+  APP_VERSION: '1.0.1',
   BATCH_MAX_RECORDS: 20,
   BATCH_MAX_BYTES: 3500000,                 // keeps each upload well under Apps Script limits
   PHOTO_MAX_PX: 800,
@@ -254,7 +282,7 @@ function fmtDateTime(isoStr) {
 }
 
 // ───────────────────────── IndexedDB ─────────────────────────
-const DB = (() => {
+let DB = (() => {
   let dbp;
   function open() {
     if (!dbp) dbp = new Promise((res, rej) => {
@@ -262,6 +290,8 @@ const DB = (() => {
       r.onupgradeneeded = () => { const d = r.result; d.createObjectStore('outbox', { keyPath: 'uuid' }); d.createObjectStore('kv'); };
       r.onsuccess = () => res(r.result);
       r.onerror = () => rej(r.error);
+      r.onblocked = () => rej(new Error('Storage is blocked by another open copy of the app'));
+      setTimeout(() => rej(new Error('Phone storage did not open in time')), 6000);
     });
     return dbp;
   }
@@ -286,6 +316,17 @@ const DB = (() => {
     delRec: k => tx('outbox', 'readwrite', s => s.delete(k))
   };
 })();
+
+// Used only if the phone's browser blocks IndexedDB: the app still works, but nothing survives closing it.
+function memoryDB() {
+  const kv = new Map(), out = new Map();
+  const c = v => (v === undefined ? v : JSON.parse(JSON.stringify(v)));
+  return {
+    memory: true,
+    get: async k => c(kv.get(k)), set: async (k, v) => { kv.set(k, c(v)); }, del: async k => { kv.delete(k); },
+    putRec: async r => { out.set(r.uuid, c(r)); }, allRecs: async () => [...out.values()].map(c), delRec: async k => { out.delete(k); }
+  };
+}
 
 // ───────────────────────── State ─────────────────────────
 let master = null;          // {didis, settings, latestReviews, fetchedAt}
@@ -1061,7 +1102,13 @@ window.addEventListener('beforeinstallprompt', e => {
 
 // ───────────────────────── Start ─────────────────────────
 (async function init() {
-  try { if (navigator.storage && navigator.storage.persist) await navigator.storage.persist(); } catch (e) {}
+  try { if (navigator.storage && navigator.storage.persist) await Promise.race([navigator.storage.persist(), new Promise(r => setTimeout(r, 2000))]); } catch (e) {}
+  try {
+    await DB.get('deviceId');
+  } catch (e) {
+    DB = memoryDB();
+    setBanner('storage', `<span>${L('यह ब्राउज़र ऐप को फ़ोन में डेटा सहेजने नहीं दे रहा। प्रविष्टि जमा करने से पहले इंटरनेट चालू रखें। इनकॉग्निटो टैब का उपयोग न करें।', 'This browser is not letting the app save data on the phone. Keep the internet on before submitting. Do not use an incognito tab.')}</span>`);
+  }
   deviceId = await DB.get('deviceId');
   if (!deviceId) { deviceId = uuid(); await DB.set('deviceId', deviceId); }
   master = (await DB.get('master')) || null;
@@ -1076,6 +1123,7 @@ window.addEventListener('beforeinstallprompt', e => {
     state = blankState(fb);
   }
   render(true);
+  if (!apiReady()) setBanner('config', `<span>${L('ऐप में शीट का लिंक (API_URL) सही नहीं डाला गया है।', 'The sheet link (API_URL) in index.html is missing or wrong. It must start with https://script.google.com/ and end with /exec.')}</span>`);
   await prune().catch(() => {});
   updateStatus();
   if (navigator.onLine) { refreshMaster(true); sync(false); }

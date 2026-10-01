@@ -2,7 +2,7 @@
  * IMPORTANT: change CACHE_VERSION every time you upload a new index.html,
  * otherwise phones keep showing the old version.
  */
-const CACHE_VERSION = 'sbap-v1';
+const CACHE_VERSION = 'sbap-v2';
 const PRECACHE = [
   './',
   './index.html',
@@ -39,11 +39,22 @@ self.addEventListener('fetch', (event) => {
   // Only handle this site's own files. Calls to Apps Script go straight to the network.
   if (url.origin !== self.location.origin) return;
 
-  // Page loads: always answer with the cached app shell so it opens offline.
+  // Page loads: try the network first (so fixes reach phones quickly), give up after
+  // 4 seconds on a weak signal, and fall back to the saved copy when offline.
   if (req.mode === 'navigate') {
-    event.respondWith(
-      caches.match('./index.html').then((cached) => cached || fetch(req))
-    );
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE_VERSION);
+      try {
+        const res = await Promise.race([
+          fetch(req, { cache: 'no-store' }),
+          new Promise((_, rej) => setTimeout(() => rej(new Error('slow')), 4000))
+        ]);
+        if (res && res.ok) { cache.put('./index.html', res.clone()); return res; }
+        throw new Error('bad response');
+      } catch (e) {
+        return (await cache.match('./index.html')) || (await caches.match('./index.html')) || fetch(req);
+      }
+    })());
     return;
   }
 
